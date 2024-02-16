@@ -1,13 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const Task = require('../models/Task');
+const TaskController = require('../controllers/TaskController')
 
 
-router.post('/create', async (req, res) => {
+router.post('/create', TaskController.create)
+router.get('/', TaskController.getAll)
+router.get('/id/:_id', TaskController.getId)
+router.put('/markAsCompleted/:_id', TaskController.updateCompleted)
+router.put('/id/:_id', TaskController.updateName)
+router.delete('/id/:_id', TaskController.deleteId)
+
+
+
+
+
+/*router.post('/create', async (req, res) => {
     try{
-        const { title } = req.body
-        const task = await Task.create({title});
-        res.status(201).send(task);
+        //const { title } = req.body
+        //const task = await Task.create({title});
+        //res.status(201).send(task);
+       // const taskTitle =req.body.title;
+        //const taskComplete = req.body.completed;
+        //const task = new Task ({title: taskTitle, completed: taskComplete});
+        //await task.save()
+        const task = await Task.create({...req.body, completed: false})
+        res.status(201).json(task)
     }
     catch(error){
         console.error(error);
@@ -61,9 +79,9 @@ router.put('/id/:_id', async(req, res) => {
 router.delete('/id/:_id', async (req, res) => {
     try{
         const task = await Task.findByIdAndDelete(req.params._id);
-        res.status(204).end();    
+        res.json(task)   
     }catch(error){
         res.status(500).json({message:'dont delete task'})
     }
 })
-module.exports = router;
+module.exports = router;*/
