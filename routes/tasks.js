@@ -1,19 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const Task = require('../models/Task');
-const TaskController = require('../controllers/TaskController')
+const express = require('express')
+const router = express.Router()
+const Task = require('../models/Task.js')
+const TaskController = require('../controllers/TaskController.js')
 
+router.post("/create", TaskController.create)
+router.get('/', TaskController.getAll )
+router.get('/id/:_id', TaskController.getByID)
+router.put("/markascompleted/:_id", TaskController.updateCompleted)
+router.put('/id/:_id', TaskController.updateByName) 
+router.delete('/id/:_id', TaskController.deleteTask )
 
-router.post('/create', TaskController.create)
-router.get('/', TaskController.getAll)
-router.get('/id/:_id', TaskController.getId)
-router.put('/markAsCompleted/:_id', TaskController.updateCompleted)
-router.put('/id/:_id', TaskController.updateName)
-router.delete('/id/:_id', TaskController.deleteId)
-
-
-
-
+module.exports = router
 
 /*router.post('/create', async (req, res) => {
     try{
@@ -83,5 +80,4 @@ router.delete('/id/:_id', async (req, res) => {
     }catch(error){
         res.status(500).json({message:'dont delete task'})
     }
-})
-module.exports = router;*/
+})*/
